@@ -22,7 +22,16 @@ namespace Vidly.Controllers
         }
         public ActionResult Details(int id)
         {
-            return Content(customers[id].Name);
+            try
+            {
+                var customer = customers.First(item => item.Id == id);
+                return View(customer);
+            }
+            catch (InvalidOperationException)
+            {
+                return HttpNotFound();
+            }
+             
         }
     }
 }
